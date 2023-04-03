@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Perform {
     Passenger passenger = new Passenger();
+    ArrayList<Flights> flightData = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
     Passenger[] data = new Passenger[100];
     Admin admin = new Admin("admin", "2004");

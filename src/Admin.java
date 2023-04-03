@@ -37,8 +37,12 @@ public class Admin {
                 4- Flight schedules
                 0- sign out""");
     }
+    int temp = 0;
     public void adminOption(){
-        showFlights(flightData);
+        if(temp == 0) {
+            showFlights(flightData);
+        }
+        temp = 1;
         boolean bool3 = true ;
         while (bool3 == true) {
             adminMenuOption();
@@ -48,6 +52,7 @@ public class Admin {
                     addFlight(flightData);
                     break;
                 case 2:
+                    updateFlight(flightData);
                     break;
                 case 3:
                     removeFlight(flightData);
@@ -126,7 +131,7 @@ public class Admin {
         int flightRemove = scanner.nextInt();
         for (int j = 0; j < flightRemove; j++) {
             boolean bool = true ;
-        while(bool == true) {
+        while(bool) {
             System.out.print("Enter the flightId : ");
             String flightIdRemove = scanner.next();
             int count = 0;
@@ -144,10 +149,74 @@ public class Admin {
         }
         }
     }
-    public void updateFlight(){
-        System.out.println("Which flight do you want to update ?\nPlease enter the flightId : ");
-        String flightIdUpdate = scanner.next();
-
+    public void updateFlight(ArrayList<Flights> flightData){
+        System.out.print("How meny flights do you want to update ? ");
+        int number = scanner.nextInt();
+        for (int j = 0; j < number; j++) {
+            boolean check = true;
+            while (check) {
+                System.out.print("Which flight do you want to update ?\nPlease enter the flightId : ");
+                String flightIdUpdate = scanner.next();
+                int count = 0;
+                for (int i = 0; i < flightData.size(); i++) {
+                    if (Objects.equals(flightIdUpdate, flightData.get(i).getFlightId())) {
+                        System.out.print("which field of flight do you want to update ? (please enter all the letters in lowercase) ");
+                        String field = scanner.next();
+                        switch (field) {
+                            case "flightid":
+                                System.out.print("Enter the new FlightId : ");
+                                String newFlightId = scanner.next();
+                                flightData.get(i).setFlightId(newFlightId);
+                                System.out.println("The FlightId of this flight update successfully ✔");
+                                break;
+                            case "origin":
+                                System.out.print("Enter the new origin : ");
+                                String newOrigin = scanner.next();
+                                flightData.get(i).setOrigin(newOrigin);
+                                System.out.println("The Origin of this flight update successfully ✔");
+                                break;
+                            case "destination":
+                                System.out.print("Enter the new FlightId : ");
+                                String newDestination = scanner.next();
+                                flightData.get(i).setDestination(newDestination);
+                                System.out.println("The Destination of this flight update successfully ✔");
+                                break;
+                            case "price":
+                                System.out.print("Enter the new Price : ");
+                                String newPrice = scanner.next();
+                                flightData.get(i).setPrice(newPrice);
+                                System.out.println("The Price of this flight update successfully ✔");
+                                break;
+                            case "seats":
+                                System.out.print("Enter the new number of seats : ");
+                                int newSeats = scanner.nextInt();
+                                flightData.get(i).setSeats(newSeats);
+                                System.out.println("The Seats of this flight update successfully ✔");
+                                break;
+                            case "time":
+                                System.out.print("Enter the new Time : ");
+                                String newTime = scanner.next();
+                                flightData.get(i).setTime(newTime);
+                                System.out.println("The Time of this flight update successfully ✔");
+                                break;
+                            case "date":
+                                System.out.print("Enter the new Date : ");
+                                String newDate = scanner.next();
+                                flightData.get(i).setDate(newDate);
+                                System.out.println("The Date of this flight update successfully ✔");
+                                break;
+                            default:
+                                System.out.println("This field not found!");
+                        }
+                        count = 1;
+                        check = false;
+                    }
+                }
+                if (count == 0) {
+                    System.out.println("This flight not found!");
+                }
+            }
+        }
     }
 }
 
