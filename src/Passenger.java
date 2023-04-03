@@ -44,39 +44,24 @@ public class Passenger {
     }
 
     public void passengersMenuOption(){
-        System.out.println("---------------------------✈ Passengers menu option ✈---------------------------");
+        System.out.println("--------------------------- ✈ Passengers menu option ✈ ---------------------------");
         System.out.println("""
-                \t<1> Change password\s
-                \t<2> Search flight tickets
-                \t<3> Booking ticket
-                \t<4> Ticket cancellation
-                \t<5> Booked tickets
-                \t<6> Add charge\s
-                \t<0> sign out\s""");
+                1- Change password
+                2- Search flight tickets
+                3- Booking ticket
+                4- Ticket cancellation
+                5- Booked tickets
+                6- Add charge
+                0- sign out""");
     }
-    public void passengerOption(int cellOfPassword , Passenger[] data , String username) {
+    public void passengerOption(int j , Passenger[] data , String username) {
         boolean bool1 = true;
-        boolean bool2 = true;
         while (bool1 == true) {
             passengersMenuOption();
             int passengerInput = scanner.nextInt();
             switch (passengerInput) {
                 case 1:
-                    System.out.println("Enter the new password");
-                    String newPassword = scanner.next();
-                    data[cellOfPassword]=  new Passenger(username ,newPassword , charge);
-                    System.out.println("The changes were made successfully :)\n<1> Back to last menu");
-                    int passengerInput2 = 0;
-                    while (bool2 == true) {
-                        passengerInput2 = scanner.nextInt();
-                        switch (passengerInput2) {
-                            case 1:
-                                bool2 = false;
-                                break;
-                            default:
-                                System.out.println("Invalid number!\nplease choose a number again");
-                        }
-                    }
+                    changePassword( j , data , username);
                     break;
                 case 2:
                     bool1 = false;
@@ -91,27 +76,40 @@ public class Passenger {
                     bool1 = false;
                     break;
                 case 6:
-                    System.out.println("please add your charge :");
-                    setCharge(scanner.nextInt());
-                    System.out.println("your charge has been successfully added\nNow your charge is" + getCharge() + "\n<1> Back");
-                    while (bool2 == true) {
-                        passengerInput2 = scanner.nextInt();
-                        switch (passengerInput2) {
-                            case 1:
-                                bool2 = false;
-                                break;
-                            default:
-                                System.out.println("Invalid number!\nplease choose a number again");
-                        }
-                    }
+                    addCharge();
                     break;
                 case 0:
                     bool1 = false;
                     break;
                 default:
-                    System.out.println("Invalid number!\nplease choose a number again");
+                    System.out.print("Invalid number!\nplease choose a number again : ");
 
             }
+        }
+    }
+    public void changePassword(int j , Passenger[] data , String username){
+        System.out.println("--------------------------- ✈ Change password ✈ ---------------------------");
+        System.out.print("Enter the new password : ");
+        String newPassword = scanner.next();
+        data[j] = new Passenger(username, newPassword, charge);
+        System.out.println("The changes were made successfully ✔\n1- Back");
+        int passengerInput2 = scanner.nextInt();
+        while (passengerInput2 != 1) {
+            System.out.println("Invalid number!\n1- Back");
+            System.out.print("Please choose a number again : ");
+            passengerInput2 = scanner.nextInt();
+        }
+    }
+    public void addCharge(){
+        System.out.println("--------------------------- ✈ Add charge ✈ ---------------------------");
+        System.out.print("please add your charge : ");
+        setCharge(scanner.nextInt()+getCharge());
+        System.out.println("your charge has been successfully added ✔\nNow your charge is " + getCharge() + "\n1- Back");
+         int passengerInput2 = scanner.nextInt();
+        while (passengerInput2 != 1) {
+            System.out.println("Invalid number!\n1- Back");
+            System.out.print("Please choose a number again : ");
+            passengerInput2 = scanner.nextInt();
         }
     }
 
