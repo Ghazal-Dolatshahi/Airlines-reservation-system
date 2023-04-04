@@ -46,9 +46,13 @@ public class Admin {
                 4- Flight schedules
                 0- sign out""");
     }
-    int temp = 0;
+//    int temp = 0;
     public void adminOption(){
         boolean bool3 = true ;
+//        if(temp == 0) {
+//            showFlights(flightData);
+//        }
+//        temp = 1;
         while (bool3 == true) {
             adminMenuOption();
             int adminOptionInput = scanner.nextInt();
@@ -75,16 +79,21 @@ public class Admin {
         }
     }
     public void showFlights(ArrayList<Flights> flightData){
-        Flights data1 = new Flights("wx-20" ,"Yazd" ,"Shiraz" , "2023-09-25" ,"12:30" ,"2500000" , 110 );
-        Flights data2 = new Flights("gh-45" ,"Kish" ,"Tehran" , "2023-09-30" ,"8:45" ,"2250000" , 105 );
-        Flights data3 = new Flights("wx-67" ,"Tehran" ,"Mashhad" , "2023-08-30" ,"4:25" ,"1500000" , 102 );
-        Flights data4 = new Flights("ab-26" ,"Ahvaz" ,"Mashhad" , "2023-09-16" ,"1:50" ,"1250000" , 150 );
-        Flights data5 = new Flights("wx-24" ,"Gorgan" ,"Esfahan" , "2023-09-05" ,"18:55" ,"700000", 96 );
-        Flights data6 = new Flights("gh-97" ,"Kish" ,"Tehran" , "2023-10-08" ,"14:50" ,"2250000" , 105 );
-        Flights data7 = new Flights("wx-57" ,"Tabriz" ,"Mashhad" , "2023-11-22" ,"16:00" ,"2250000" , 51 );
-        Flights data8 = new Flights("cd-44" ,"Mashhad" ,"Kish" , "2023-10-18" ,"0:00" ,"2150000" , 105 );
-        Flights data9 = new Flights("wx-18" ,"Yazd" ,"Mashhad" , "2023-09-15" ,"14:50" ,"950000" , 56 );
-        Flights data10 = new Flights("gh-22" ,"Yazd" ,"Mashhad" , "2023-09-15" ,"20:20" ,"2250000" , 40 );
+        Flights data1 = new Flights("wx-20" ,"Yazd" ,"Shiraz" , "2023-09-25" ,"12:30" ,2500000 , 110 );
+        Flights data2 = new Flights("gh-45" ,"Kish" ,"Tehran" , "2023-09-30" ,"8:45" ,2250000 , 105 );
+        Flights data3 = new Flights("wx-67" ,"Tehran" ,"Mashhad" , "2023-08-30" ,"4:25" ,1500000 , 102 );
+        Flights data4 = new Flights("ab-26" ,"Ahvaz" ,"Mashhad" , "2023-09-16" ,"1:50" ,1250000 , 150 );
+        Flights data5 = new Flights("wx-24" ,"Gorgan" ,"Esfahan" , "2023-09-05" ,"18:55" ,700000, 0 );
+        Flights data6 = new Flights("gh-97" ,"Kish" ,"Tehran" , "2023-10-08" ,"14:50" ,2250000 , 105 );
+        Flights data7 = new Flights("wx-57" ,"Tabriz" ,"Mashhad" , "2023-11-22" ,"16:00" ,2250000 , 51 );
+        Flights data8 = new Flights("cd-44" ,"Mashhad" ,"Kish" , "2023-10-18" ,"0:00" ,2150000 , 105 );
+        Flights data9 = new Flights("wx-18" ,"Yazd" ,"Mashhad" , "2023-09-15" ,"14:50" ,950000 , 56 );
+        Flights data10 = new Flights("gh-22" ,"Yazd" ,"Mashhad" , "2023-09-25" ,"20:20" ,2250000 , 40 );
+        Flights data11 = new Flights("wx-18" ,"Yazd" ,"Mashhad" , "2023-09-15" ,"1:50" ,950000 , 56 );
+        Flights data12 = new Flights("wx-18" ,"Yazd" ,"Mashhad" , "2023-09-15" ,"14:50" ,3000000 , 56 );
+        Flights data13 = new Flights("wx-18" ,"Yazd" ,"Mashhad" , "2023-09-15" ,"14:50" ,3000000 , 0 );
+
+
         flightData.add(0,data1);
         flightData.add(1,data2);
         flightData.add(2,data3);
@@ -95,12 +104,16 @@ public class Admin {
         flightData.add(7,data8);
         flightData.add(8,data9);
         flightData.add(9,data10);
+        flightData.add(10,data11);
+        flightData.add(11,data12);
+        flightData.add(12,data13);
+
     }
-    public ArrayList<Flights>  flightSchedules(ArrayList<Flights> flightData){
-        if(temp == 0) {
-            showFlights(flightData);
-        }
-        temp = 1;
+    public ArrayList<Flights> flightSchedules(ArrayList<Flights> flightData){
+//        if(temp == 0) {
+//            showFlights(flightData);
+//        }
+//        temp = 1;
         System.out.println("FlightId\t\tOrigin\t\tDestination\t\t\tDate\t\t\t\tTime\t\t\tPrice\t\tSeats" );
         for(int i = 0 ; i < flightData.size() ; i++) {
             System.out.println(flightData.get(i).getFlightId() + "\t\t\t" + flightData.get(i).getOrigin() + "\t\t\t" +
@@ -127,7 +140,7 @@ public class Admin {
             System.out.print("Enter the time : ");
             String time = scanner.next();
             System.out.print("Enter the price : ");
-            String price = scanner.next();
+            int price = scanner.nextInt();
             System.out.print("Enter the seats : ");
             int seats = scanner.nextInt();
             Flights dataNew = new Flights(flightId, origin, destination, date, time, price, seats);
@@ -146,7 +159,7 @@ public class Admin {
             int count = 0;
             for (int i = 0; i < flightData.size(); i++) {
                 if (Objects.equals(flightIdRemove, flightData.get(i).getFlightId())) {
-                    flightData.remove(i);
+                    System.out.println(flightData.remove(i));
                     System.out.println("This flight remove successfully ✔");
                     count = 1;
                     bool = false;
@@ -159,7 +172,7 @@ public class Admin {
         }
     }
     public void updateFlight(ArrayList<Flights> flightData){
-        System.out.print("How meny flights do you want to update ? ");
+        System.out.print("How many flights do you want to update ? ");
         int number = scanner.nextInt();
         for (int j = 0; j < number; j++) {
             boolean check = true;
@@ -185,14 +198,14 @@ public class Admin {
                                 System.out.println("The Origin of this flight update successfully ✔");
                                 break;
                             case "destination":
-                                System.out.print("Enter the new FlightId : ");
+                                System.out.print("Enter the new Destination : ");
                                 String newDestination = scanner.next();
                                 flightData.get(i).setDestination(newDestination);
                                 System.out.println("The Destination of this flight update successfully ✔");
                                 break;
                             case "price":
                                 System.out.print("Enter the new Price : ");
-                                String newPrice = scanner.next();
+                                int newPrice = scanner.nextInt();
                                 flightData.get(i).setPrice(newPrice);
                                 System.out.println("The Price of this flight update successfully ✔");
                                 break;
@@ -227,17 +240,13 @@ public class Admin {
             }
         }
     }
-    public void flightSchedules2(int i){
-        if(temp == 0) {
-            showFlights(flightData);
-        }
-        temp = 1;
+    public ArrayList<Flights> flightSchedules2(int i ){
             System.out.println(flightData.get(i).getFlightId() + "\t\t\t" + flightData.get(i).getOrigin() + "\t\t\t" +
                     flightData.get(i).getDestination() + "\t\t\t" + flightData.get(i).getDate() + "\t\t\t" +
                     flightData.get(i).getTime() + "\t\t\t" + flightData.get(i).getPrice() + "\t\t\t" +
                     flightData.get(i).getSeats());
             System.out.println(flightData.size());
+            return flightData;
     }
-
 }
 

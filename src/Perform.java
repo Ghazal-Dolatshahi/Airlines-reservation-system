@@ -45,7 +45,7 @@ public class Perform {
                         temp = 1;
                         break;
                     }
-                    while (Objects.equals(userName, data[i].getUserName())) {
+                    while (Objects.equals(userName, data[i].getUserName()) || Objects.equals(userName, "admin")) {
                         System.out.println("This username has already used\nTry again");
                         System.out.print("Enter your Username : ");
                         userName = scanner.next();
@@ -68,8 +68,12 @@ public class Perform {
             }
             panel();
         }
-
+int temp = 0;
     public void signIn() {
+        if(temp == 0) {
+            admin.showFlights(admin.getFlightData());
+        }
+        temp = 1;
         System.out.println("--------------------------- ✈ Sign in ✈ ---------------------------");
         System.out.print("Enter your Username : ");
         String userName = scanner.next();

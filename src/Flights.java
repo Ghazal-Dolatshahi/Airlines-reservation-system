@@ -7,7 +7,7 @@ public class Flights {
     private String destination;
     private String date;
     private String time;
-    private String price;
+    private int price;
     private int seats;
 
     public String getFlightId() {
@@ -50,11 +50,11 @@ public class Flights {
         this.time = time;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -66,7 +66,7 @@ public class Flights {
         this.seats = seats;
     }
 
-    public Flights(String flightId, String origin, String destination, String date, String time, String price, int seats) {
+    public Flights(String flightId, String origin, String destination, String date, String time, int price, int seats) {
         this.flightId = flightId;
         this.origin = origin;
         this.destination = destination;
