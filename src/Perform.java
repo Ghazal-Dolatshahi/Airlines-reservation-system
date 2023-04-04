@@ -4,10 +4,9 @@ import java.util.Scanner;
 
 public class Perform {
     Passenger passenger = new Passenger();
-    ArrayList<Flights> flightData = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
     Passenger[] data = new Passenger[100];
-    Admin admin = new Admin("admin", "2004");
+    Admin admin = new Admin("admin", "2004" );
     int i = 0;
 
     public void panel() {
@@ -37,22 +36,38 @@ public class Perform {
 
     public void signUp() {
         System.out.println("--------------------------- ✈ Sign up ✈ ---------------------------");
-        System.out.print("Enter your Username : ");
-        String userName = scanner.next();
-        System.out.print("Enter your password : ");
-        String password = (scanner.next());
-        passenger.setCharge(0);
-        data[i++] = new Passenger(password , userName , passenger.getCharge());
-        System.out.print( userName + "Your sign up is successful ✔ \n1- Back");
-        System.out.print("\nNow you can press (1) to return to the previous menu : ");
-        int back = scanner.nextInt();
-        while (back != 1) {
-            System.out.print("Invalid number!\n1- Back \n");
-            System.out.print("Please choose a number again : ");
-            back = scanner.nextInt();
+            System.out.print("Enter your Username : ");
+            String userName = scanner.next();
+            int temp = 0;
+            while (temp == 0 ) {
+                for (int i = 0; i < data.length; i++) {
+                    if (data[i] == null) {
+                        temp = 1;
+                        break;
+                    }
+                    while (Objects.equals(userName, data[i].getUserName())) {
+                        System.out.println("This username has already used\nTry again");
+                        System.out.print("Enter your Username : ");
+                        userName = scanner.next();
+                        i = 0;
+                    }
+                }
+                temp = 1;
+            }
+            System.out.print("Enter your password : ");
+            String password = (scanner.next());
+            passenger.setCharge(0);
+            data[i++] = new Passenger(password, userName, passenger.getCharge());
+            System.out.print(userName + "Your sign up is successful ✔ \n1- Back");
+            System.out.print("\nNow you can press (1) to return to the previous menu : ");
+            int back = scanner.nextInt();
+            while (back != 1) {
+                System.out.print("Invalid number!\n1- Back \n");
+                System.out.print("Please choose a number again : ");
+                back = scanner.nextInt();
+            }
+            panel();
         }
-        panel();
-    }
 
     public void signIn() {
         System.out.println("--------------------------- ✈ Sign in ✈ ---------------------------");

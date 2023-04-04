@@ -1,12 +1,14 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.util.*;
 public class Passenger {
     Scanner scanner = new Scanner(System.in);
-
-    private  String userName;
+    private String userName;
     private String password;
-    private int charge ;
-
+    private int charge;
+    Admin admin = new Admin("admin", "2004");
+    ArrayList<Flights> flightData = new ArrayList<>();
+    HashMap<String , Integer> passengerCharge = new HashMap<>();
 
     public Passenger(String userName, String password, int charge) {
         this.userName = userName;
@@ -43,7 +45,7 @@ public class Passenger {
         this.charge = charge;
     }
 
-    public void passengersMenuOption(){
+    public void passengersMenuOption() {
         System.out.println("--------------------------- ✈ Passengers menu option ✈ ---------------------------");
         System.out.println("""
                 1- Change password
@@ -54,16 +56,18 @@ public class Passenger {
                 6- Add charge
                 0- sign out""");
     }
-    public void passengerOption(int j , Passenger[] data , String username) {
+
+    public void passengerOption(int j, Passenger[] data, String username) {
         boolean bool1 = true;
         while (bool1 == true) {
             passengersMenuOption();
             int passengerInput = scanner.nextInt();
             switch (passengerInput) {
                 case 1:
-                    changePassword( j , data , username);
+                    changePassword(j, data, username);
                     break;
                 case 2:
+                    searchFlights();
                     bool1 = false;
                     break;
                 case 3:
@@ -76,7 +80,7 @@ public class Passenger {
                     bool1 = false;
                     break;
                 case 6:
-                    addCharge();
+                    addCharge(username);
                     break;
                 case 0:
                     bool1 = false;
@@ -87,7 +91,8 @@ public class Passenger {
             }
         }
     }
-    public void changePassword(int j , Passenger[] data , String username){
+
+    public void changePassword(int j, Passenger[] data, String username) {
         System.out.println("--------------------------- ✈ Change password ✈ ---------------------------");
         System.out.print("Enter the new password : ");
         String newPassword = scanner.next();
@@ -100,12 +105,14 @@ public class Passenger {
             passengerInput2 = scanner.nextInt();
         }
     }
-    public void addCharge(){
+
+    public void addCharge(String username) {
         System.out.println("--------------------------- ✈ Add charge ✈ ---------------------------");
         System.out.print("please add your charge : ");
-        setCharge(scanner.nextInt()+getCharge());
-        System.out.println("your charge has been successfully added ✔\nNow your charge is " + getCharge() + "\n1- Back");
-         int passengerInput2 = scanner.nextInt();
+        passengerCharge.computeIfAbsent(username, k -> getCharge());
+        passengerCharge.replace(username , passengerCharge.get(username),scanner.nextInt() + passengerCharge.get(username) );
+        System.out.println("your charge has been successfully added ✔\nNow your charge is " + passengerCharge.get(username) + "\n1- Back");
+        int passengerInput2 = scanner.nextInt();
         while (passengerInput2 != 1) {
             System.out.println("Invalid number!\n1- Back");
             System.out.print("Please choose a number again : ");
@@ -113,6 +120,24 @@ public class Passenger {
         }
     }
 
+    public void searchFlights() {
+        int count = 0;
+        int temp = 0;
+        admin.setFlightData(admin.flightSchedules(flightData));
+        System.out.println("Origin : ");
+        String origin = scanner.next();
+        for (int i = 0; i < flightData.size(); i++) {
+            if (Objects.equals(origin, flightData.get(i).getOrigin())) {
+                if (temp == 0) {
+                    System.out.println("FlightId\t\tOrigin\t\tDestination\t\t\tDate\t\t\t\tTime\t\t\tPrice\t\tSeats");
+                }
+                temp = 1;
+                admin.flightSchedules2(i);
+                count = 1;
+            }
+        }
+        if (count == 0) {
+            System.out.println("This flight not found!");
+        }
+    }
 }
-
-

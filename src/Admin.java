@@ -5,11 +5,20 @@ import java.util.Scanner;
 public class Admin {
     private String username;
     private String password;
-    ArrayList<Flights> flightData = new ArrayList<>();
+    public static ArrayList<Flights> flightData = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
-    public Admin(String username, String password) {
-        this.username = "admin";
-        this.password = "2004";
+
+    public Admin(String username, String password ) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public ArrayList<Flights> getFlightData() {
+        return flightData;
+    }
+
+    public void setFlightData(ArrayList<Flights> flightData) {
+        this.flightData = flightData;
     }
 
     public String getUsername() {
@@ -39,10 +48,6 @@ public class Admin {
     }
     int temp = 0;
     public void adminOption(){
-        if(temp == 0) {
-            showFlights(flightData);
-        }
-        temp = 1;
         boolean bool3 = true ;
         while (bool3 == true) {
             adminMenuOption();
@@ -91,7 +96,11 @@ public class Admin {
         flightData.add(8,data9);
         flightData.add(9,data10);
     }
-    public void flightSchedules(ArrayList<Flights> flightData){
+    public ArrayList<Flights>  flightSchedules(ArrayList<Flights> flightData){
+        if(temp == 0) {
+            showFlights(flightData);
+        }
+        temp = 1;
         System.out.println("FlightId\t\tOrigin\t\tDestination\t\t\tDate\t\t\t\tTime\t\t\tPrice\t\tSeats" );
         for(int i = 0 ; i < flightData.size() ; i++) {
             System.out.println(flightData.get(i).getFlightId() + "\t\t\t" + flightData.get(i).getOrigin() + "\t\t\t" +
@@ -99,8 +108,8 @@ public class Admin {
                     flightData.get(i).getTime() + "\t\t\t" + flightData.get(i).getPrice() + "\t\t\t" +
                     flightData.get(i).getSeats());
             System.out.println(flightData.size());
-
         }
+        return flightData;
     }
     public void addFlight(ArrayList<Flights> flightData){
         System.out.println("---------------------------✈ Add flights ✈---------------------------");
@@ -218,5 +227,17 @@ public class Admin {
             }
         }
     }
+    public void flightSchedules2(int i){
+        if(temp == 0) {
+            showFlights(flightData);
+        }
+        temp = 1;
+            System.out.println(flightData.get(i).getFlightId() + "\t\t\t" + flightData.get(i).getOrigin() + "\t\t\t" +
+                    flightData.get(i).getDestination() + "\t\t\t" + flightData.get(i).getDate() + "\t\t\t" +
+                    flightData.get(i).getTime() + "\t\t\t" + flightData.get(i).getPrice() + "\t\t\t" +
+                    flightData.get(i).getSeats());
+            System.out.println(flightData.size());
+    }
+
 }
 
