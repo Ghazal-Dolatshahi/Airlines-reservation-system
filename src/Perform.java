@@ -1,18 +1,18 @@
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Perform {
-    Passenger passenger = new Passenger();
     Scanner scanner = new Scanner(System.in);
+    Passenger passenger = new Passenger();
     Passenger[] data = new Passenger[100];
-    Admin admin = new Admin("admin", "2004" );
+    Admin admin = new Admin();
+    Flights flights =  new Flights();
     int i = 0;
-
+    int temp = 0;
     public void panel() {
 
         boolean bool = true;
-        while (bool == true) {
+        while (bool) {
             System.out.println("--------------------------- ✈ Welcome to airline reservation system ✈ ---------------------------");
             System.out.println("1- Sign in ");
             System.out.println("2- Sign up ");
@@ -35,14 +35,14 @@ public class Perform {
     }
 
     public void signUp() {
+
+        int temp = 0;
         System.out.println("--------------------------- ✈ Sign up ✈ ---------------------------");
             System.out.print("Enter your Username : ");
             String userName = scanner.next();
-            int temp = 0;
             while (temp == 0 ) {
                 for (int i = 0; i < data.length; i++) {
                     if (data[i] == null) {
-                        temp = 1;
                         break;
                     }
                     while (Objects.equals(userName, data[i].getUserName()) || Objects.equals(userName, "admin")) {
@@ -54,45 +54,54 @@ public class Perform {
                 }
                 temp = 1;
             }
+
             System.out.print("Enter your password : ");
             String password = (scanner.next());
             passenger.setCharge(0);
             data[i++] = new Passenger(password, userName, passenger.getCharge());
-            System.out.print(userName + "Your sign up is successful ✔ \n1- Back");
-            System.out.print("\nNow you can press (1) to return to the previous menu : ");
+            System.out.println(userName + " Your sign up is successful ✔ \n1- Back");
             int back = scanner.nextInt();
+
             while (back != 1) {
-                System.out.print("Invalid number!\n1- Back \n");
+                System.out.println("Invalid number!\n1- Back \n");
                 System.out.print("Please choose a number again : ");
                 back = scanner.nextInt();
             }
+
             panel();
         }
-int temp = 0;
+
     public void signIn() {
         if(temp == 0) {
-            admin.showFlights(admin.getFlightData());
+            flights.showFlights(admin.getFlightData());
+            passenger.fillArray();
         }
         temp = 1;
+        int count = 0;
+
         System.out.println("--------------------------- ✈ Sign in ✈ ---------------------------");
         System.out.print("Enter your Username : ");
         String userName = scanner.next();
         System.out.print("Enter your password : ");
         String password = scanner.next();
-        int count = 0;
+
         if (Objects.equals(password, "2004") && Objects.equals(userName, "admin")) {
+            System.out.println("Welcome admin");
             admin.adminOption();
             panel();
             count = 1;
         }
+
         for (int j = 0; j < i ; j++) {
             if (Objects.equals(userName, data[j].getUserName()) && Objects.equals(password, data[j].getPassword())) {
+                System.out.println("Welcome " + userName);
                 passenger.passengerOption(j, data , userName);
                 panel();
                 count = 1;
                 break;
             }
         }
+
         if (count == 0) {
             System.out.println("Sorry your password and username is invalid \nplease sign up and then try again");
             panel();
