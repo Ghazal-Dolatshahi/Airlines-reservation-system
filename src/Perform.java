@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Perform {
     Scanner scanner = new Scanner(System.in);
     Passenger passenger = new Passenger();
-    Passenger[] data = new Passenger[100];
+    static Passenger[] data = new Passenger[100];
     Admin admin = new Admin();
     Flights flights =  new Flights();
     int i = 0;

@@ -7,9 +7,9 @@ public class Passenger {
     private int charge;
     Admin admin = new Admin();
     Flights flights = new Flights();
-    HashMap<String, Integer> passengerCharge = new HashMap<>();
+    //    HashMap<String, Integer> passengerCharge = new HashMap<>();
     int[] ticketIdArray = new int[1000];
-    String[][] ticketData = new String[100][100];
+    static String[][] ticketData = new String[100][100];
     int q;
     int temp = 0;
 
@@ -109,9 +109,19 @@ public class Passenger {
 
         System.out.println("--------------------------- ✈ Add charge ✈ ---------------------------");
         System.out.print("Please add your charge : ");
-        passengerCharge.computeIfAbsent(userName, k -> getCharge());
-        passengerCharge.replace(userName, passengerCharge.get(userName), scanner.nextInt() + passengerCharge.get(userName));
-        System.out.println("Your charge has been successfully added ✔\nNow your charge is " + passengerCharge.get(userName) + "\n1- Back");
+//        passengerCharge.computeIfAbsent(userName, k -> getCharge());
+//        passengerCharge.replace(userName, passengerCharge.get(userName), scanner.nextInt() + passengerCharge.get(userName));
+//        System.out.println("Your charge has been successfully added ✔\nNow your charge is " + passengerCharge.get(userName) + "\n1- Back");
+        int charge = scanner.nextInt();
+        for (int i = 0; i < Perform.data.length; i++) {
+            if (Perform.data[i] == null) {
+                break;
+            }
+            if (Objects.equals(Perform.data[i].getUserName(), userName)) {
+                Perform.data[i].setCharge(Perform.data[i].getCharge() + charge);
+                System.out.println("Your charge has been successfully added ✔\nNow your charge is " + Perform.data[i].getCharge() + "\n1- Back");
+            }
+        }
         int passengerCommand2 = scanner.nextInt();
 
         while (passengerCommand2 != 1) {
@@ -119,7 +129,6 @@ public class Passenger {
             System.out.print("Please choose a number again : ");
             passengerCommand2 = scanner.nextInt();
         }
-
     }
 
     public void searchFlights() {
@@ -256,14 +265,22 @@ public class Passenger {
     public void bookingTicket(String userName){
         int count = 0;
         int count2 = 0;
-        passengerCharge.computeIfAbsent(userName, k -> getCharge());
-
+//        passengerCharge.computeIfAbsent(userName, k -> getCharge());
+        int c = 0;
+        for (int i = 0; i < Perform.data.length; i++) {
+            if (Perform.data[i] == null) {
+                break;
+            }
+            if(Objects.equals(Perform.data[i].getUserName(), userName)){
+                c = i;
+            }
+        }
         System.out.print("Enter the FlightId : ");
-       String flightIdBook = scanner.next();
+        String flightIdBook = scanner.next();
 
         for (int i = 0; i < admin.getFlightData().size(); i++) {
             if(Objects.equals(flightIdBook, admin.getFlightData().get(i).getFlightId())){
-                if((admin.getFlightData().get(i).getSeats() > 0) &&(admin.getFlightData().get(i).getPrice() <= passengerCharge.get(userName))){
+                if((admin.getFlightData().get(i).getSeats() > 0) &&(admin.getFlightData().get(i).getPrice() <= Perform.data[c].getCharge())){
                     System.out.print("Enter 1 to book : ");
                     int book = scanner.nextInt();
                     count = 1;
@@ -296,38 +313,38 @@ public class Passenger {
                         System.out.println("Your ticket id is : " + ticketIdArray[q]);
                         q++;
                         admin.getFlightData().get(i).setSeats(admin.getFlightData().get(i).getSeats() - 1);
-                        passengerCharge.replace(userName, passengerCharge.get(userName) - admin.getFlightData().get(i).getPrice());
-                    }
+//                        passengerCharge.replace(userName, passengerCharge.get(userName) - admin.getFlightData().get(i).getPrice());
+                        Perform.data[c].setCharge(Perform.data[c].getCharge()-admin.getFlightData().get(i).getPrice());
                     }
                 }
             }
+        }
 
-        if(count == 0){
+        if(count == 0) {
             int count3 = 0;
 
             for (int i = 0; i < admin.getFlightData().size(); i++) {
 
-                if(Objects.equals(flightIdBook, admin.getFlightData().get(i).getFlightId())){
-                    if(admin.getFlightData().get(i).getSeats() == 0 && admin.getFlightData().get(i).getPrice() >passengerCharge.get(userName)) {
+                if (Objects.equals(flightIdBook, admin.getFlightData().get(i).getFlightId())) {
+                    if (admin.getFlightData().get(i).getSeats() == 0 && admin.getFlightData().get(i).getPrice() > Perform.data[c].getCharge()) {
                         System.out.println("Sorry! the capacity of this flight has been completed and the price of this ticket is more than your charge");
                         count3 = 1;
                         break;
                     }
-            if(admin.getFlightData().get(i).getSeats() == 0){
-                    System.out.println("Sorry! the capacity of this flight has been completed");
-                count3 = 1;
-                }
-                if (admin.getFlightData().get(i).getPrice() >passengerCharge.get(userName)) {
-                    System.out.println("Sorry! the price of this ticket is more than your charge");
-                    count3 = 1;
+                    if (admin.getFlightData().get(i).getSeats() == 0) {
+                        System.out.println("Sorry! the capacity of this flight has been completed");
+                        count3 = 1;
+                    }
+                    if (admin.getFlightData().get(i).getPrice() > Perform.data[c].getCharge()) {
+                        System.out.println("Sorry! the price of this ticket is more than your charge");
+                        count3 = 1;
+                    }
                 }
             }
-            }
-            if( count3 == 0){
+            if (count3 == 0) {
                 System.out.println("This flight not found!");
             }
-            
-    }
+        }
     }
 
     public void bookedTicket (String userName){
@@ -362,7 +379,15 @@ public class Passenger {
 
     public void ticketCancellation (String userName){
         int count = 0;
-
+        int c = 0;
+        for (int i = 0; i < Perform.data.length; i++) {
+            if (Perform.data[i] == null) {
+                break;
+            }
+            if(Objects.equals(Perform.data[i].getUserName(), userName)){
+                c = i;
+            }
+        }
         System.out.print("Enter the ticket id : ");
         String  ticketId = scanner.next();
 
@@ -370,26 +395,27 @@ public class Passenger {
             if(Objects.equals(ticketData[j][0], userName)){
 
                 for(int k = 0 ; k < 100 ; k+=2){
-                   if(Objects.equals(ticketId, ticketData[j][k])){
-                       count = 1;
-                      String idCancellation = ticketData[j][k - 1];
-                       ticketData[j][k] = null;
-                       ticketData[j][k - 1] = null;
+                    if(Objects.equals(ticketId, ticketData[j][k])){
+                        count = 1;
+                        String idCancellation = ticketData[j][k - 1];
+                        ticketData[j][k] = null;
+                        ticketData[j][k - 1] = null;
 
-                       for (int i = 0; i < admin.getFlightData().size(); i++) {
-                           if(Objects.equals(idCancellation, admin.getFlightData().get(i).getFlightId())){
-                               admin.getFlightData().get(i).setSeats(admin.getFlightData().get(i).getSeats() + 1);
-                               passengerCharge.replace(userName, passengerCharge.get(userName) + admin.getFlightData().get(i).getPrice());
-                               System.out.println("Your ticket has been cancelled ✔");
+                        for (int i = 0; i < admin.getFlightData().size(); i++) {
+                            if(Objects.equals(idCancellation, admin.getFlightData().get(i).getFlightId())){
+                                admin.getFlightData().get(i).setSeats(admin.getFlightData().get(i).getSeats() + 1);
+                                Perform.data[c].setCharge(Perform.data[i].getCharge()+admin.getFlightData().get(i).getPrice());
+//                               passengerCharge.replace(userName, passengerCharge.get(userName) + admin.getFlightData().get(i).getPrice());
+                                System.out.println("Your ticket has been cancelled ✔");
 
-                           }
-                       }
-                       }
-                   }
+                            }
+                        }
                     }
                 }
+            }
+        }
         if(count == 0 ){
             System.out.println("No tickets have been registered for you with this ID");
         }
-            }
-        }
+    }
+}

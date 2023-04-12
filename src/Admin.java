@@ -109,6 +109,15 @@ public class Admin {
                 if (Objects.equals(flightIdRemove, flightData.get(i).getFlightId())) {
                     flightData.remove(i);
                     System.out.println("This flight remove successfully ✔");
+                    for (int i1 = 0; i1 < 100; i1++) {
+                        for (int i2 = 1; i2 < 100; i2+=2) {
+                            if(Objects.equals(Passenger.ticketData[i1][i2], flightIdRemove)){
+                                Passenger.ticketData[i1][i2] = null;
+                                Passenger.ticketData[i1 + 1][i2] = null;
+                            }
+
+                        }
+                    }
                     count = 1;
                     bool = false;
                 }
