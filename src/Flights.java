@@ -1,131 +1,158 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Flights {
-    private  String flightId;
-    private String origin;
-    private String destination;
-    private String date;
-    private String time;
-    private int price;
-    private int seats;
-    public String getFlightId() {
-        return flightId;
-    }
-
-    public void setFlightId(String flightId) {
-        this.flightId = flightId;
-    }
-
-    public String getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getSeats() {
-        return seats;
-    }
-
-    public void setSeats(int seats) {
-        this.seats = seats;
-    }
-
-    public Flights(String flightId, String origin, String destination, String date, String time, int price, int seats) {
-        this.flightId = flightId;
-        this.origin = origin;
-        this.destination = destination;
-        this.date = date;
-        this.time = time;
-        this.price = price;
-        this.seats = seats;
-    }
+    ArrayList<Flight> flightData;
+    AdminControl adminControl = new AdminControl();
 
     public Flights() {
-
-    }
-    public void showFlights(ArrayList<Flights> flightData){
-        Flights data1 = new Flights("wx-20" ,"Yazd" ,"Shiraz" , "2023-09-25" ,"12:30" ,2500000 , 110 );
-        Flights data2 = new Flights("gh-45" ,"Kish" ,"Tehran" , "2023-09-30" ,"8:45" ,2250000 , 105 );
-        Flights data3 = new Flights("wx-67" ,"Tehran" ,"Mashhad" , "2023-08-30" ,"4:25" ,1500000 , 102 );
-        Flights data4 = new Flights("ab-26" ,"Ahvaz" ,"Mashhad" , "2023-09-16" ,"1:50" ,1250000 , 150 );
-        Flights data5 = new Flights("wx-24" ,"Gorgan" ,"Esfahan" , "2023-09-05" ,"18:55" ,700000, 0 );
-        Flights data6 = new Flights("gh-97" ,"Kish" ,"Tehran" , "2023-10-08" ,"14:50" ,2250000 , 105 );
-        Flights data7 = new Flights("wx-57" ,"Tabriz" ,"Mashhad" , "2023-11-22" ,"16:00" ,2250000 , 51 );
-        Flights data8 = new Flights("cd-44" ,"Mashhad" ,"Kish" , "2023-10-18" ,"0:00" ,2150000 , 105 );
-        Flights data9 = new Flights("wx-18" ,"Yazd" ,"Mashhad" , "2023-09-15" ,"14:50" ,950000 , 56 );
-        Flights data10 = new Flights("gh-22" ,"Yazd" ,"Mashhad" , "2023-09-25" ,"20:20" ,2250000 , 40 );
-        Flights data11 = new Flights("wx-45" ,"Yazd" ,"Mashhad" , "2023-09-15" ,"1:50" ,950000 , 56 );
-        Flights data12 = new Flights("wx-78" ,"Yazd" ,"Mashhad" , "2023-09-15" ,"14:50" ,3000000 , 56 );
-        Flights data13 = new Flights("wx-122" ,"Yazd" ,"Mashhad" , "2023-09-15" ,"14:50" ,3000000 , 0 );
-
-        flightData.add(0,data1);
-        flightData.add(1,data2);
-        flightData.add(2,data3);
-        flightData.add(3,data4);
-        flightData.add(4,data5);
-        flightData.add(5,data6);
-        flightData.add(6,data7);
-        flightData.add(7,data8);
-        flightData.add(8,data9);
-        flightData.add(9,data10);
-        flightData.add(10,data11);
-        flightData.add(11,data12);
-        flightData.add(12,data13);
-    }
-    public void flightSchedules2(int i ){
-
-        System.out.println( Admin.flightData.get(i).getFlightId() + "\t\t\t" + Admin.flightData.get(i).getOrigin() + "\t\t\t" +
-                Admin.flightData.get(i).getDestination() + "\t\t\t" + Admin.flightData.get(i).getDate() + "\t\t\t" +
-                Admin. flightData.get(i).getTime() + "\t\t\t" +  Admin.flightData.get(i).getPrice() + "\t\t\t" +
-                Admin.flightData.get(i).getSeats());
-
+        this.flightData = new ArrayList<>();
     }
 
-    public void flightSchedules(ArrayList<Flights> flightData){
+    public void showFlights() {
+        Flight data1 = new Flight("wx-20", "Yazd", "Shiraz", "1402/09/25", "12:30", "2500000", "110");
+        Flight data2 = new Flight("gh-45", "Kish", "Tehran", "1402/01/31", "8:45", "2250000", "105");
+        Flight data3 = new Flight("wx-67", "Tehran", "Mashhad", "1402/08/30", "04:25", "1500000", "102");
+        Flight data4 = new Flight("ab-26", "Gorgan", "Mashhad", "1402/09/16", "01:50", "1250000", "150");
+        Flight data5 = new Flight("wx-24", "Gorgan", "Esfahan", "1402/09/05", "18:55", "700000", "0");
+        Flight data6 = new Flight("gh-97", "Kish", "Tehran", "1402/10/08", "14:50", "2250000", "105");
+        Flight data7 = new Flight("wx-57", "Tabriz", "Mashhad", "1402/11/22", "16:00", "2250000", "51");
+        Flight data8 = new Flight("cd-44", "Mashhad", "Kish", "1402/10/18", "00:00", "2150000", "107");
+        Flight data9 = new Flight("wx-18", "Yazd", "Mashhad", "1402/09/15", "14:50", "950000", "56");
+        Flight data10 = new Flight("gh-22", "Yazd", "Mashhad", "1402/09/25", "20:20", "2250000", "40");
+        Flight data11 = new Flight("wx-45", "Yazd", "Mashhad", "1402/06/31", "01:50", "950000", "56");
+        Flight data12 = new Flight("wx-78", "Yazd", "Mashhad", "1402/09/15", "15:50", "3000000", "78");
+        Flight data13 = new Flight("wx-122", "Yazd", "Mashhad", "1402/09/15", "14:50", "3000000", "45");
 
-        System.out.println("FlightId\t\tOrigin\t\tDestination\t\t\tDate\t\t\t\tTime\t\t\tPrice\t\tSeats" );
+        flightData.add(0, data1);
+        flightData.add(1, data2);
+        flightData.add(2, data3);
+        flightData.add(3, data4);
+        flightData.add(4, data5);
+        flightData.add(5, data6);
+        flightData.add(6, data7);
+        flightData.add(7, data8);
+        flightData.add(8, data9);
+        flightData.add(9, data10);
+        flightData.add(10, data11);
+        flightData.add(11, data12);
+        flightData.add(12, data13);
+    }
 
-        for(int i = 0 ; i < flightData.size() ; i++) {
-            System.out.println(flightData.get(i).getFlightId() + "\t\t\t" + flightData.get(i).getOrigin() + "\t\t\t" +
-                    flightData.get(i).getDestination() + "\t\t\t" + flightData.get(i).getDate() + "\t\t\t" +
-                    flightData.get(i).getTime() + "\t\t\t" + flightData.get(i).getPrice() + "\t\t\t" +
-                    flightData.get(i).getSeats());
+    public int searchFlight(String origin, String destination, String time, String date, int price2, int temp, Database database) {
+        int count = 0;
+        switch (temp) {
+
+            case 0 -> {
+                for (int i = 0; i < flightData.size(); i++) {
+                    if (Objects.equals(origin, flightData.get(i).getOrigin())) {
+                        adminControl.flightSchedules(i, database);
+                        count++;
+                    }
+                }
+            }
+
+            case 1 -> {
+                for (int i = 0; i < flightData.size(); i++) {
+                    if (Objects.equals(destination, flightData.get(i).getDestination()) && Objects.equals(origin, flightData.get(i).getOrigin())) {
+                        adminControl.flightSchedules(i, database);
+                        count++;
+                    }
+                }
+            }
+
+            case 2 -> {
+                for (int i = 0; i < flightData.size(); i++) {
+                    if (Objects.equals(destination, flightData.get(i).getDestination()) && Objects.equals(origin, flightData.get(i).getOrigin())
+                            && Objects.equals(date, flightData.get(i).getDate())) {
+                        adminControl.flightSchedules(i, database);
+                        count++;
+                    }
+                }
+            }
+
+            case 3 -> {
+                for (int i = 0; i < flightData.size(); i++) {
+                    if (Objects.equals(destination, flightData.get(i).getDestination()) && Objects.equals(origin, flightData.get(i).getOrigin())
+                            && Objects.equals(date, flightData.get(i).getDate()) && Objects.equals(time, flightData.get(i).getTime())) {
+                        adminControl.flightSchedules(i, database);
+                        count++;
+                    }
+                }
+            }
+
+            case 4 -> {
+                for (int i = 0; i < flightData.size(); i++) {
+                    if (Objects.equals(destination, flightData.get(i).getDestination()) && Objects.equals(origin, flightData.get(i).getOrigin())
+                            && Objects.equals(date, flightData.get(i).getDate()) && Integer.parseInt(flightData.get(i).getPrice()) <= price2 &&
+                            Objects.equals(time, flightData.get(i).getTime())) {
+                        adminControl.flightSchedules(i, database);
+                        count++;
+                    }
+                }
+            }
+
         }
-
+        return count;
     }
+
+    public void addFlight(String flightId, String origin, String destination, String date, String time, String price, String seats) {
+
+        Flight newData = new Flight(flightId, origin, destination, date, time, price, seats);
+        flightData.add(flightData.size(), newData);
     }
 
+    public int removeFlight(String flightIdRemove, Database database) {
+        int count = 0;
+
+        for (int i = 0; i < flightData.size(); i++) {
+            if (Objects.equals(flightIdRemove, flightData.get(i).getFlightId())) {
+                database.tickets.removeTicket(flightIdRemove, database);
+                flightData.remove(i);
+                count = 1;
+            }
+        }
+        return count;
+    }
+
+    public void updateFlight(String field, String update, int i, Database database) {
+
+        switch (field) {
+
+            case "flightid" -> {
+                database.tickets.updateTicket(flightData.get(i).getFlightId(), update, "flightid", flightData.get(i).getFlightId(), database);
+                flightData.get(i).setFlightId(update);
+            }
+
+            case "origin" -> {
+                database.tickets.updateTicket(flightData.get(i).getFlightId(), update, "origin", flightData.get(i).getOrigin(), database);
+                flightData.get(i).setOrigin(update);
+            }
+
+            case "destination" -> {
+                database.tickets.updateTicket(flightData.get(i).getFlightId(), update, "destination", flightData.get(i).getDestination(), database);
+                flightData.get(i).setDestination(update);
+            }
+
+            case "price" -> {
+                database.tickets.updateTicket(flightData.get(i).getFlightId(), update, "price", flightData.get(i).getPrice(), database);
+                flightData.get(i).setPrice(update);
+            }
+
+            case "seats" -> {
+                database.tickets.updateTicket(flightData.get(i).getFlightId(), update, "seats", flightData.get(i).getSeats(), database);
+                flightData.get(i).setSeats(update);
+            }
+
+            case "time" -> {
+                database.tickets.updateTicket(flightData.get(i).getFlightId(), update, "time", flightData.get(i).getTime(), database);
+                flightData.get(i).setTime(update);
+            }
+
+            case "date" -> {
+                database.tickets.updateTicket(flightData.get(i).getFlightId(), update, "date", flightData.get(i).getDate(), database);
+                flightData.get(i).setDate(update);
+            }
+        }
+    }
+}
