@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
-
 import static java.lang.Math.abs;
 
+/**
+ * <img src = "../src/Pics/travel.jpg" width="450" height="300">
+ */
 public class Tickets {
     String[] ticketIdArray;
     ArrayList<Ticket> ticket;
@@ -15,6 +17,17 @@ public class Tickets {
         this.ticket = new ArrayList<>();
     }
 
+    /**
+     *<span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF">Based on information , this ticket will be added to the arraylist of tickets</span>
+     * @param i
+     *          the cell number of arraylist of flight data
+     * @param j
+     *          the cell number of arraylist of passenger data
+     * @param database
+     *          have the list of passengers, flights, tickets and admins and check the format of program entries
+     * @return
+     *          the cell number of the ticket id array
+     */
     public int addTicket(int i, int j, Database database) {
         if (temp == 0) {
             fillArray();
@@ -33,6 +46,14 @@ public class Tickets {
         return temp2;
     }
 
+    /**
+     * <span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF">Based on the flight ID remove ticket from arraylist </span>
+     * @param flightIdRemove
+     *                      the flight ID of the flight that its tickets should be deleted
+     * @param database
+     *                      have the list of passengers, flights, tickets and admins and check the format of program entries
+     */
+
     public void removeTicket(String flightIdRemove, Database database) {
 
         for (int i = 0; i < ticket.size(); i++) {
@@ -45,6 +66,18 @@ public class Tickets {
             }
         }
     }
+
+    /**
+     * <span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF">Based on the username and ticket ID remove ticket from arraylist</span>
+     * @param userName
+     *                  the username of the passenger
+     * @param ticketId
+     *                  the ticket ID of the ticket that passenger wants to delete
+     * @param database
+     *                  have the list of passengers, flights, tickets and admins and check the format of program entries
+     * @return
+     *                  the number of ticket removed
+     */
 
     public int removeTicket2(String userName, String ticketId, Database database) {
         int count = 0;
@@ -71,6 +104,19 @@ public class Tickets {
         return count;
     }
 
+    /**
+     *<span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF"> Any changes made by the admin in the specific flight will be applied to the tickets of that flight</span>
+     * @param flightId
+     *                  the flight ID of the flight that its field has been changed
+     * @param update
+     *                  the value after updating
+     * @param field
+     *                  the field has been updated
+     * @param previous
+     *                  the value before updating
+     * @param database
+     *                  have the list of passengers, flights, tickets and admins and check the format of program entries
+     */
     public void updateTicket(String flightId, String update, String field, String previous, Database database) {
         int distance;
         String userName;
@@ -115,6 +161,9 @@ public class Tickets {
         }
     }
 
+    /**
+     *<span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF"> Fill the ticket ID array with random numbers </span>
+     */
     public void fillArray() {
 
         ticketIdArray = new String[10];

@@ -1,4 +1,3 @@
-
 public class Ticket {
     private final String ticketId;
     private final Flight flight;

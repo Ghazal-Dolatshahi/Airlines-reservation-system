@@ -9,6 +9,10 @@ public class Flights {
         this.flightData = new ArrayList<>();
     }
 
+    /**
+     * <span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF">Fill the arraylist of flight data with default flights </span>
+     */
+
     public void showFlights() {
         Flight data1 = new Flight("wx-20", "Yazd", "Shiraz", "1402/09/25", "12:30", "2500000", "110");
         Flight data2 = new Flight("gh-45", "Kish", "Tehran", "1402/01/31", "8:45", "2250000", "105");
@@ -39,6 +43,25 @@ public class Flights {
         flightData.add(12, data13);
     }
 
+    /**
+     * <span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF">Based on information search and find the flight</span>
+     * @param origin
+     *              the origin of the  desired flight
+     * @param destination
+     *              the destination of the desired flight
+     * @param time
+     *              the time of the desired flight
+     * @param date
+     *              the date of the desired flight
+     * @param price2
+     *              the price of the desired flight
+     * @param temp
+     *              the number of times the search is repeated
+     * @param database
+     *              have the list of passengers, flights, tickets and admins and  check the format of program entries
+     * @return
+     *              the number of flights that found
+     */
     public int searchFlight(String origin, String destination, String time, String date, int price2, int temp, Database database) {
         int count = 0;
         switch (temp) {
@@ -96,12 +119,38 @@ public class Flights {
         return count;
     }
 
+    /**
+     * <span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF">Based on the information add the flight in the arraylist</span>
+     * @param flightId
+     *                  the flight ID of the flight that entered by admin
+     * @param origin
+     *                  the origin of the flight that entered by admin
+     * @param destination
+     *                  the destination of the flight that entered by admin
+     * @param date
+     *                  the date of the flight that entered by admin
+     * @param time
+     *                  the time of the flight that entered by admin
+     * @param price
+     *                  the price of the flight that entered by admin
+     * @param seats
+     *                  the seats of the flight that entered by admin
+     */
     public void addFlight(String flightId, String origin, String destination, String date, String time, String price, String seats) {
 
         Flight newData = new Flight(flightId, origin, destination, date, time, price, seats);
         flightData.add(flightData.size(), newData);
     }
 
+    /**
+     * <span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF">Based on flight ID remove the flight from arraylist</span>
+     * @param flightIdRemove
+     *                      the flight ID of the flight that the admin wants to remove
+     * @param database
+     *                      have the list of passengers, flights, tickets and admins and check the format of program entries
+     * @return
+     *                      1 if found the flight with this flight ID , otherwise return 0
+     */
     public int removeFlight(String flightIdRemove, Database database) {
         int count = 0;
 
@@ -109,12 +158,24 @@ public class Flights {
             if (Objects.equals(flightIdRemove, flightData.get(i).getFlightId())) {
                 database.tickets.removeTicket(flightIdRemove, database);
                 flightData.remove(i);
+                i--;
                 count = 1;
             }
         }
         return count;
     }
 
+    /**
+     * <span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF">Based on the information update flights</span>
+     * @param field
+     *              the fields that needs to be updated
+     * @param update
+     *              the replacement quantity
+     * @param i
+     *              the cell number of arraylist of flight data
+     * @param database
+     *              have the list of passengers, flights, tickets and admins and check the format of program entries
+     */
     public void updateFlight(String field, String update, int i, Database database) {
 
         switch (field) {

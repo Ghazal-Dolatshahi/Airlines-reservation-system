@@ -4,9 +4,12 @@ import java.util.Scanner;
 public class AdminControl {
     Scanner scanner = new Scanner(System.in);
 
+    /**
+     *<span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF"> Show the admin menu </span>
+     */
     public void adminMenuOption() {
 
-        System.out.println("--------------------------- ✈ Admin menu option ✈ ---------------------------");
+        System.out.println("\033[94m---------------------- ✈\u001b[0m Admin menu option \033[94m✈ ---------------------\u001b[0m");
         System.out.println("""
                 1- Add
                 2- Update
@@ -14,7 +17,19 @@ public class AdminControl {
                 4- Flight schedules
                 0- sign out""");
     }
-
+    /**
+     * <h1 style = "font-family : Times New Roman ; color:#20B2AA">Admin option method :</h1>
+     *
+     * <pre style = "font-family : Times New Roman ;font-size :12px;color:#20B2AA">
+     * Enter 0 to sign out <hr>
+     * Enter 1 to add flight <span style=" font-size :12px;font-family : Times New Roman"> {@link #addData(Database)}<hr>
+     * Enter 2 to update each field of flight <span style=" font-size :12px;font-family : Times New Roman"> {@link #updateData}<hr>
+     * Enter 3 to remove flight <span style=" font-size :12px;font-family : Times New Roman"> {@link #removeData(Database)}<hr>
+     * Enter 4 to show the flights <span style=" font-size :12px;font-family : Times New Roman"> {@link #flightSchedules(int, Database)}<hr>
+     * @param database
+     *                have the list of passengers, flights, tickets and admins and check the format of program entries
+     *  </pr>
+     */
     public void adminOption(Database database) {
         boolean bool3 = true;
 
@@ -27,17 +42,23 @@ public class AdminControl {
                 case "2" -> updateData(database);
                 case "3" -> removeData(database);
                 case "4" -> {
-                    System.out.printf("|%-10s|%-10s|%-12s|%-12s|%-8s|%-10s|%-8s %n", "FlightId", "Origin", "Destination", "Date", "Time", "Price", "Seats");
+                    System.out.printf("\u001b[35m|\u001b[0m%-10s\u001b[35m|\u001b[0m%-10s\u001b[35m|\u001b[0m%-12s\u001b[35m|\u001b[0m%-12s\u001b[35m|\u001b[0m%-8s\u001b[35m|\u001b[0m%-10s\u001b[35m|\u001b[0m%-8s %n",
+                            "FlightId", "Origin", "Destination", "Date", "Time", "Price", "Seats");
                     flightSchedules(-1, database);
                 }
                 case "0" -> bool3 = false;
-                default -> System.out.print("Invalid! please choose a number again : ");
+                default -> System.out.print("\033[91mInvalid!\u001b[0m please choose a number again\n ");
 
             }
         }
 
     }
 
+    /**
+     * <span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF">For added flights, get flight information from admin</span>
+     * @param database
+     *              have the list of passengers, flights, tickets and admins and check the format of program entries
+     */
     public void addData(Database database) {
         boolean bool2;
         String price = null;
@@ -47,7 +68,7 @@ public class AdminControl {
         String time = null;
         String date = null;
 
-        System.out.println("--------------------------- ✈ Add flights ✈ ---------------------------");
+        System.out.println("\033[94m------------------------ ✈ \u001b[0mAdd flights\033[94m ✈ ------------------------\u001b[0m");
         System.out.print("How many flights do you want to add ? ");
         String number = scanner.next();
         if (database.checkNum(number)) {
@@ -73,7 +94,7 @@ public class AdminControl {
                     if (database.checkLetter(origin)) {
                         bool2 = false;
                     } else {
-                        System.out.println("Invalid! try again");
+                        System.out.println("\033[91mInvalid! \u001b[0m try again");
                     }
                 }
 
@@ -84,7 +105,7 @@ public class AdminControl {
                     if (database.checkLetter(destination) && !Objects.equals(origin, destination)) {
                         bool2 = false;
                     } else {
-                        System.out.println("Invalid! try again");
+                        System.out.println("\033[91mInvalid!\u001b[0m try again");
                         if (Objects.equals(destination, origin)) {
                             System.out.println("The origin and destination are the same! try again");
                         }
@@ -98,7 +119,7 @@ public class AdminControl {
                     if (database.checkDate(date)) {
                         bool2 = false;
                     } else {
-                        System.out.println("Invalid! try again");
+                        System.out.println("\033[91mInvalid!\u001b[0m try again");
                     }
                 }
 
@@ -109,7 +130,7 @@ public class AdminControl {
                     if (database.checkTime(time)) {
                         bool2 = false;
                     } else
-                        System.out.println("Invalid! try again");
+                        System.out.println("\033[91mInvalid!\u001b[0m try again");
                 }
 
                 bool2 = true;
@@ -119,7 +140,7 @@ public class AdminControl {
                     if (database.checkNum(price) && Integer.parseInt(price) >= 0)
                         bool2 = false;
                     else
-                        System.out.println("Invalid! try again");
+                        System.out.println("\033[91mInvalid!\u001b[0m try again");
                 }
 
                 bool2 = true;
@@ -129,21 +150,25 @@ public class AdminControl {
                     if (database.checkNum(seats) && Integer.parseInt(seats) > 0)
                         bool2 = false;
                     else
-                        System.out.println("Invalid! try again");
+                        System.out.println("\033[91mInvalid!\u001b[0m try again");
                 }
 
                 database.flights.addFlight(flightId, origin, destination, date, time, price, seats);
                 System.out.println("This flight add successfully ✔");
             }
         } else
-            System.out.println("Invalid! try again");
+            System.out.println("\033[91mInvalid! \u001b[0m try again");
     }
-
+    /**
+     * <span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF">For remove flights, get flight information from admin</span>
+     * @param database
+     *              have the list of passengers,flights,tickets and admins and check the format of program entries
+     */
     public void removeData(Database database) {
         boolean bool;
         int count;
 
-        System.out.println("--------------------------- ✈ remove flights ✈ ---------------------------");
+        System.out.println("\033[94m---------------------- ✈\u001b[0m remove flights \033[94m✈ -----------------------\u001b[0m");
         System.out.print("How many fights do you want to remove ? ");
         String num = scanner.next();
         bool = database.checkNum(num);
@@ -162,14 +187,18 @@ public class AdminControl {
 
             System.out.println("This flight remove successfully ✔");
         } else
-            System.out.println("Invalid! try again");
+            System.out.println("\033[91mInvalid!\u001b[0m try again");
     }
-
+    /**
+     * <span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF">For update flights, get flight information from admin</span>
+     * @param database
+     *                have the list of passengers,flights,tickets and admins and check the format of program entries
+     */
     public void updateData(Database database) {
         boolean check;
         int count = 0;
 
-        System.out.println("--------------------------- ✈ update flights ✈ ---------------------------");
+        System.out.println("\033[94m----------------------- ✈\u001b[0m update flights \033[94m✈ -----------------------\u001b[0m");
 
         System.out.print("How many flights do you want to update ? ");
         String number = scanner.next();
@@ -201,8 +230,20 @@ public class AdminControl {
                 }
             }
         } else
-            System.out.println("Invalid! try again");
+            System.out.println("\033[91mInvalid!\u001b[0m try again");
     }
+
+    /**
+     * <span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF">Checks that the entered information is not duplicated and has the correct format</span>
+     * @param field
+     *              the field of flight that the admin wants to update
+     * @param i
+     *              the cell number in the arraylist of flights data
+     * @param database
+     *              have the list of passengers,flights,tickets and admins and check the format of program entries
+     * @return
+     *              the cell number in the arraylist of flights data
+     */
 
     public int fieldFlight(String field, int i, Database database) {
         String newPrice = null;
@@ -234,7 +275,7 @@ public class AdminControl {
                         System.out.println("The Origin of this flight update successfully ✔");
                         bool2 = false;
                     } else
-                        System.out.println("Invalid! try again");
+                        System.out.println("\033[91mInvalid!\u001b[0m try again");
                     if (Objects.equals(newOrigin, database.flights.flightData.get(i).getDestination())) {
                         System.out.println("The origin and destination are the same! try again");
                     }
@@ -250,7 +291,7 @@ public class AdminControl {
                         System.out.println("The Destination of this flight update successfully ✔");
                         bool2 = false;
                     } else
-                        System.out.println("Invalid! try again");
+                        System.out.println("\033[91mInvalid!\u001b[0m try again");
                     if (Objects.equals(newDestination, database.flights.flightData.get(i).getOrigin())) {
                         System.out.println("The origin and destination are the same! try again");
                     }
@@ -264,7 +305,7 @@ public class AdminControl {
                     if (database.checkNum(newPrice) && Integer.parseInt(newPrice) >= 0)
                         bool2 = false;
                     else
-                        System.out.println("Invalid! try again");
+                        System.out.println("\033[91mInvalid!\u001b[0m try again");
 
                 }
                 database.flights.updateFlight(field, newPrice, i, database);
@@ -280,7 +321,7 @@ public class AdminControl {
                     if (database.checkNum(newSeats) && Integer.parseInt(newSeats) >= 0)
                         bool2 = false;
                     else
-                        System.out.println("Invalid! try again");
+                        System.out.println("\033[91mInvalid!\u001b[0m try again");
                 }
                 database.flights.updateFlight(field, newSeats, i, database);
                 System.out.println("The Seats of this flight update successfully ✔");
@@ -295,7 +336,7 @@ public class AdminControl {
                     if (database.checkTime(newTime))
                         bool2 = false;
                     else
-                        System.out.println("Invalid! try again");
+                        System.out.println("\033[91mInvalid!\u001b[0m try again");
                 }
                 database.flights.updateFlight(field, newTime, i, database);
                 System.out.println("The Time of this flight update successfully ✔");
@@ -310,7 +351,7 @@ public class AdminControl {
                     if (database.checkDate(newDate))
                         bool2 = false;
                     else
-                        System.out.println("Invalid! try again");
+                        System.out.println("\033[91mInvalid!\u001b[0m try again");
                 }
                 database.flights.updateFlight(field, newDate, i, database);
                 System.out.println("The Date of this flight update successfully ✔");
@@ -324,18 +365,26 @@ public class AdminControl {
         return i;
     }
 
+    /**
+     * <span style = "font-family : Times New Roman ; font-size :12px ;color:#1E90FF">Print all the flights or specific flights</span>
+     *
+     * @param i
+     *                  the cell number in the arraylist of flights data
+     * @param database
+     *                  have the list of passengers,flights,tickets and admins and check the format of program entries
+     */
     public void flightSchedules(int i, Database database) {
 
         if (i >= 0) {
-            System.out.printf("---------------------------------------------------------------------------%n");
-            System.out.printf("|%-10s|%-10s|%-12s|%-12s|%-8s|%-10s|%-8s %n", database.flights.flightData.get(i).getFlightId(),
+            System.out.printf("\u001b[35m---------------------------------------------------------------------------%n");
+            System.out.printf("\u001b[35m|\u001b[0m%-10s\u001b[35m|\u001b[0m%-10s\u001b[35m|\u001b[0m%-12s\u001b[35m|\u001b[0m%-12s\u001b[35m|\u001b[0m%-8s\u001b[35m|\u001b[0m%-10s\u001b[35m|\u001b[0m%-8s %n", database.flights.flightData.get(i).getFlightId(),
                     database.flights.flightData.get(i).getOrigin(), database.flights.flightData.get(i).getDestination(),
                     database.flights.flightData.get(i).getDate(), database.flights.flightData.get(i).getTime(),
                     database.flights.flightData.get(i).getPrice(), database.flights.flightData.get(i).getSeats());
         } else
             for (int j = 0; j < database.flights.flightData.size(); j++) {
-                System.out.printf("---------------------------------------------------------------------------%n");
-                System.out.printf("|%-10s|%-10s|%-12s|%-12s|%-8s|%-10s|%-8s %n", database.flights.flightData.get(j).getFlightId(),
+                System.out.printf("\u001b[35m---------------------------------------------------------------------------%n");
+                System.out.printf("\u001b[35m|\u001b[0m%-10s\u001b[35m|\u001b[0m%-10s\u001b[35m|\u001b[0m%-12s\u001b[35m|\u001b[0m%-12s\u001b[35m|\u001b[0m%-8s\u001b[35m|\u001b[0m%-10s\u001b[35m|\u001b[0m%-8s %n", database.flights.flightData.get(j).getFlightId(),
                         database.flights.flightData.get(j).getOrigin(), database.flights.flightData.get(j).getDestination(),
                         database.flights.flightData.get(j).getDate(), database.flights.flightData.get(j).getTime(),
                         database.flights.flightData.get(j).getPrice(), database.flights.flightData.get(j).getSeats());
